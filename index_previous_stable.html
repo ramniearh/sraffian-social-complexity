@@ -105,9 +105,6 @@
 
 <div class="container">
     <h1>Sraffa meets Polanyi: a Social Provisioning Sandbox</h1>
-    <div style="background:#fff3e0; border:1px solid #ffb74d; border-left:5px solid #fb8c00; border-radius:5px; padding:10px 14px; margin-bottom:16px; font-size:14px; color:#6d4c00;">
-        <strong>⚠️ Under construction:</strong> valuation/monetization layer, implementation of social sectors as claimants/sinks, eigenvector interpretations when not from subsistence. All presets are impressionistic illustrations and not calibrated to empirical data.
-    </div>
 
     <div class="preset-bar" id="preset-bar">
         <span style="font-size: 14px; font-weight: bold; margin-right: 10px;">Load Model:</span>
@@ -192,94 +189,38 @@
                 </div>
 
                 <div>
-                    <div class="sub-header" style="margin-top: 0;">Provisioning Centrality — closed-system prices (left eigenvector)</div>
-                    <p class="chart-intro">What one unit of each sector's output is worth in terms of the numéraire, when the whole closed matrix (economic <em>and</em> social sectors) must reproduce itself. Each weight is the bundle of everyone else's inputs that one unit of this sector ties up, directly and indirectly. At exact subsistence these are reproduction exchange ratios; with social sectors included they are the closest general analogue to prices, whatever institution actually sets them.</p>
-
+                    <div class="sub-header" style="margin-top: 0;">Provisioning Centrality (Left Eigenvector)</div>
+                    <p class="chart-intro">These weights (normalized to the numéraire) are the dominant left eigenvector of A: each sector's weight measures the bundle of other sectors' inputs it absorbs from the system per unit of its own output (where the equivalences used to aggregate heterogeneous inputs are the weights themselves). In a more narrowly economic and closed system at subsistence (as in Sraffa's Chapter 1), these also correspond to exchange ratios - but note that these could be market prices, traditional administrative exchange rates, or other institutional closures adopted by different societies. </p>
+                    
                     <div style="display: flex; justify-content: center; margin-top: 10px;">
                         <table class="diag-table" style="width: auto; min-width: 40%; margin: 0;">
                             <thead><tr><th>Physical Unit</th><th id="weight-header">Weights</th></tr></thead>
                             <tbody id="out-centrality-tbody"></tbody>
                         </table>
                     </div>
-
+                    
                     <p class="chart-caption">
-                        Dominant left eigenvector of the full matrix A — the vector <strong>p</strong> with <strong>p</strong>&middot;A = λ&middot;<strong>p</strong> — normalized to the numéraire. Caveat: once social sectors are in, this is the same computation but a weaker interpretation (a weight, not a market price). A pure sink (zero-output row, e.g. Ch.2 capitalists) carries a placeholder TOTAL OUTPUT (this is partly an artifact; in these cases, the productive-block ratios below reflect prices) [under construction].
+                        This is the dominant left eigenvector of A — the vector <strong>p</strong> satisfying <strong>p</strong>&middot;A = λ&middot;<strong>p</strong> — normalized to the chosen numéraire. In Sraffa's more narrowly economic framework, at subsistence (before surplus distribution is introduced), these weights correspond to market prices. In our extended framework, regardless of the institutional form of integration, the vector provides a systemic measure of how much of the provisioning network is required to sustain each sector. These are (in some sense to be explored) analogues to prices in market systems.
                     </p>
-
-                    <div class="sub-header" style="margin-top: 18px;">Closed-system activity levels (right eigenvector)</div>
-                    <p class="chart-intro">The relative gross outputs at which the whole closed system reproduces itself. For a matrix that is exactly closed (every output absorbed as an input), this simply recovers the proportions of the stated TOTAL OUTPUT column.</p>
+                    <div class="sub-header" style="margin-top: 18px;">Quantity Dual: Standard Proportions (Right Eigenvector)</div>
                     <div style="display: flex; justify-content: center; margin-top: 10px;">
                         <table class="diag-table" style="width: auto; min-width: 40%; margin: 0;">
-                            <thead><tr><th>Sector</th><th style="text-align:right;">Level</th></tr></thead>
-                            <tbody id="out-full-right"></tbody>
+                            <thead><tr><th>Sector (in designated block)</th><th>Relative activity level</th></tr></thead>
+                            <tbody id="out-standard-tbody"></tbody>
                         </table>
                     </div>
                     <p class="chart-caption">
-                        Dominant right eigenvector of A (A&middot;<strong>x</strong> = λ&middot;<strong>x</strong>), normalized to the first sector. Left and right eigenvectors share the eigenvalue and form the price/quantity duality: prices weight the columns (costs), activity levels weight the rows (outputs).
+                        The dominant right eigenvector of the designated block, normalized to its first
+                        sector. These are the proportions of Sraffa's Standard system (PCMC Ch. 4): the
+                        composite output in which the wage–profit frontier becomes the linear relation
+                        r = R(1 &minus; w), with R = 1/&lambda; &minus; 1 given by the block eigenvalue.
+                        Left and right eigenvectors share the same eigenvalue and form the
+                        valuation/quantity duality of the system. For a fully closed matrix, the right
+                        eigenvector of the full system is proportional to the TOTAL OUTPUT column itself.
                     </p>
                 </div>
 
             </div>
-
-            <div class="sub-header" style="margin-top: 24px;">Productive block in isolation — stripping out the social sectors</div>
-            <p class="chart-intro">
-                The two vectors below are computed on the <strong>productive block</strong> alone: the sectors you have
-                <em>not</em> flagged Social, with the social rows and columns removed. Setting them beside the
-                closed-system results above isolates one thing — what the social closure does to the economy's
-                ratios and activity levels..
-            </p>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px 24px; margin-top:10px;">
-                <div>
-                    <div style="font-weight:600; font-size:13px; color:var(--primary); margin-bottom:4px;">
-                        Block exchange ratios <span style="font-weight:400;">(block left eigenvector)</span>
-                    </div>
-                    <table class="diag-table"><thead><tr><th>Sector</th><th style="text-align:right;">Ratio</th></tr></thead>
-                        <tbody id="out-block-left"></tbody></table>
-                    <p class="chart-caption" style="margin-top:6px;">
-                        The reproduction exchange ratios of the productive sectors on their own. At zero surplus these
-                        equal each good's embodied-resource (vertically integrated) content — the clean Sraffian price
-                        benchmark, uncontaminated by the social closure. Where these diverge from the closed-system
-                        prices above, the gap measures how much the social sectors reshape relative prices.
-                    </p>
-                </div>
-                <div>
-                    <div style="font-weight:600; font-size:13px; color:var(--primary); margin-bottom:4px;">
-                        Block proportions <span style="font-weight:400;">(block right eigenvector — Standard proportions)</span>
-                    </div>
-                    <table class="diag-table"><thead><tr><th>Sector</th><th style="text-align:right;">Level</th></tr></thead>
-                        <tbody id="out-block-right"></tbody></table>
-                    <p class="chart-caption" style="margin-top:6px;">
-                        The relative outputs at which the productive block would reproduce itself unaided — Sraffa's
-                        Standard proportions (PCMC Ch.4), the composite in which the wage–profit frontier is the
-                        straight line r = R(1−w), with R = 1/λ<sub>B</sub> − 1. The block is generally <em>not</em>
-                        closed: its reproduction costs (labour, care, infrastructure) sit in the social sectors, so
-                        λ<sub>B</sub> is typically below 1 — the block looks surplus-producing only because those
-                        costs were externalized. Correspondences hold cleanly at subsistence (λ = 1); away from it,
-                        approximate.
-                    </p>
-                </div>
-            </div>
-            <!-- TBD(text): when a social sector is modelled as a pure SINK it should be excluded from the
-                 reproduction eigenvector by construction (not just flagged non-basic) and shown only in the
-                 surplus-absorption charts. Pending the sink toggle. Also fold in the earlier full-left box
-                 content if a side-by-side left/left comparison is wanted later. -->
-
-            <div class="sub-header" style="margin-top: 24px;">Monetized subsystem <span style="font-weight:400; font-size:12px; color:#888;">— under construction</span></div>
-            <p class="chart-intro">
-                The same block construction, but keyed to the <em>valuation</em> layer instead of the social flag: a
-                sector enters if most of its output (by volume) is settled in money ($, $~ or $*). This separates out a "valuation core" (the part of the economy that operates through a unit of account). TBD: gow far these ratios diverge from closed-system provisioning centrality weights.
-                <!-- TBD(concept): this is mode 1 (monetized-SECTOR block). Mode 2 (monetized-FLOW mask →
-                     per-sector monetary exposure / conversion burden, the Single Whip mechanism) is deferred;
-                     it needs M_in vs M_out masked sums, split by free ($~) vs administered ($*). Threshold
-                     currently 50% of output volume; expose as a control later. -->
-            </p>
-            <div id="out-monetized-block" style="margin-top:10px;"></div>
-            <p class="chart-caption">
-                Eigenvalue λ<sub>$</sub> and exchange ratios of the monetized subsystem, normalized to its first
-                sector. Like the productive block it is generally not closed — monetized sectors buy from
-                non-monetized ones — so λ<sub>$</sub> below 1 reflects those externalized in-kind inputs rather than
-                a genuine surplus. Exploratory.
-            </p>
         </div>
 
         <div class="panel">
@@ -334,13 +275,7 @@
                     <p class="chart-intro">Aggregates total systemic scale according to the user-assigned integration forms.</p>
                     <div class="chart-wrapper"><canvas id="instChart"></canvas></div>
                     <p class="chart-caption">
-                        <strong>Two rings.</strong> Outer ring: each flow Z[i&rarr;j] attributed to its user-assigned
-                        Polanyian form of integration. Inner ring: the same flows grouped by the valuation
-                        (monetization) marker. Both weight each flow by Z[i][j] × Provisioning Centrality of sector i,
-                        so the cross-tabulation shows, e.g., how much redistribution is in-kind vs. monetized. This
-                        reflects the qualitative annotations entered in the matrix, not an independent measurement.
-                        <!-- TBD(text): reconcile this caption with the new two-layer annotation; describe the five
-                             valuation states and confirm colors once finalized. -->
+                        Each flow Z[i&rarr;j] is attributed to its user-assigned Polanyian form of integration. The flow's structural weight (Z[i][j] × Provisioning Centrality of sector i) is aggregated by form of integration. This chart reflects the qualitative annotations entered in the matrix and should be interpreted accordingly — it does not independently validate or empirically measure integration forms. This is not a measure of system parameters, only a reflection of the user's categorization. The proportions change if annotations are revised.
                     </p>
 
                     <div class="sub-header" style="margin-top: 30px;">Provisioning Centrality Profile (Radar)</div>
@@ -456,20 +391,6 @@
     const instBgs = ['var(--inst-unassigned)', 'var(--inst-exchange)', 'var(--inst-redistribution)', 'var(--inst-reciprocity)'];
     const makeInst = (n, val) => Array.from({length: n}, () => new Array(n).fill(val));
 
-    // Monetization / valuation layer (independent of the integration-form layer above).
-    // 0 = unmarked (no valuation indicated)
-    // 1 = monetized, unspecified (generic $ — neither free nor administered)
-    // 2 = monetized, free/floating price
-    // 3 = monetized, administered price
-    // 4 = explicitly in-kind / non-monetized
-    // This records whether a flow is assessed in a unit of account, orthogonally to
-    // whether it is exchange, redistribution, or reciprocity.
-    const monMarks   = ['', '$', '$~', '$*', '⊘'];
-    const monTitles  = ['no valuation indicated', 'monetized (unspecified)', 'monetized (free/floating price)', 'monetized (administered price)', 'in-kind / non-monetized'];
-    const monColors  = ['transparent', '#2e7d32', '#1e88e5', '#ef6c00', '#546e7a'];
-    const MON_STATES = monMarks.length; // 5
-    const makeMon = (n) => Array.from({length: n}, () => new Array(n).fill(0));
-
     const presets = {
         diy: {
             sectors: [
@@ -490,17 +411,6 @@
             institutions: [
                 [1,1,1,1,2,0], [1,1,1,1,2,0], [1,1,1,1,2,0],
                 [1,1,1,3,2,0], [2,2,2,2,2,0], [0,0,0,0,0,0]
-            ],
-            // Valuation layer: 0=none 1=$(generic) 2=$~(free) 3=$*(admin) 4=⊘(in-kind)
-            // $~ on all market-form flows; column 4 (into Tax/Infra) mostly $~;
-            // row 4 (Tax/Infra supplying others) = $* administered.
-            monetization: [
-                [2, 2, 2, 2, 2, 0],
-                [2, 2, 2, 2, 2, 0],
-                [2, 2, 2, 2, 2, 0],
-                [2, 2, 2, 0, 2, 0],
-                [3, 3, 3, 3, 3, 0],
-                [0, 0, 0, 0, 0, 0]
             ]
         },
         sraffa_ch1: {
@@ -867,8 +777,7 @@
             total_output: [...p.total_output],
             numeraire: p.numeraire_index,
             social: [...p.social_indices],
-            institutions: p.institutions ? p.institutions.map(row => [...row]) : makeInst(p.sectors.length, 0),
-            monetization: p.monetization ? p.monetization.map(row => [...row]) : makeMon(p.sectors.length)
+            institutions: p.institutions ? p.institutions.map(row => [...row]) : makeInst(p.sectors.length, 0)
         };
         
         renderMatrix();
@@ -879,23 +788,6 @@
         e.preventDefault();
         state.institutions[i][j] = (state.institutions[i][j] + 1) % 4;
         document.getElementById(`td_${i}_${j}`).style.backgroundColor = instBgs[state.institutions[i][j]];
-        markStale();
-    }
-
-    // Left-click on the cell background cycles the monetization/valuation marker.
-    // Guarded so that clicks landing on the number input itself do not trigger it
-    // (those should edit the value, not toggle the marker).
-    function cycleMon(e, i, j) {
-        if (e.target && e.target.tagName === 'INPUT') return;
-        if (!state.monetization) state.monetization = makeMon(state.sectors.length);
-        state.monetization[i][j] = (state.monetization[i][j] + 1) % MON_STATES;
-        const mk = document.getElementById(`mon_${i}_${j}`);
-        if (mk) {
-            const v = state.monetization[i][j];
-            mk.innerHTML = monMarks[v];
-            mk.style.color = monColors[v];
-            mk.title = monTitles[v];
-        }
         markStale();
     }
 
@@ -941,9 +833,7 @@
                 </td>`;
             for (let j = 0; j < N; j++) {
                 let bg = instBgs[state.institutions[i][j] || 0];
-                let monV = (state.monetization && state.monetization[i] ? state.monetization[i][j] : 0) || 0;
-                html += `<td id="td_${i}_${j}" style="background-color: ${bg}; position: relative;" oncontextmenu="cycleInst(event, ${i}, ${j})" onclick="cycleMon(event, ${i}, ${j})" title="Left-click: cycle valuation marker · Right-click: cycle integration form">
-                    <span id="mon_${i}_${j}" title="${monTitles[monV]}" style="position:absolute; top:1px; right:3px; font-size:11px; font-weight:bold; font-family:monospace; line-height:1; pointer-events:none; color:${monColors[monV]};">${monMarks[monV]}</span>
+                html += `<td id="td_${i}_${j}" style="background-color: ${bg};" oncontextmenu="cycleInst(event, ${i}, ${j})">
                     <input type="number" id="cell_${i}_${j}" class="matrix-cell" value="${state.Z[i][j]}" min="0"
                     onchange="state.Z[${i}][${j}]=parseFloat(this.value)||0; markStale();">
                 </td>`;
@@ -983,9 +873,6 @@
         state.Z.push(new Array(state.sectors.length).fill(0));
         state.institutions.forEach(row => row.push(0));
         state.institutions.push(new Array(state.sectors.length).fill(0));
-        if (!state.monetization) state.monetization = makeMon(state.sectors.length - 1);
-        state.monetization.forEach(row => row.push(0));
-        state.monetization.push(new Array(state.sectors.length).fill(0));
         renderMatrix();
         markStale();
     }
@@ -999,7 +886,6 @@
         state.Z.forEach(row => row.pop());
         state.institutions.pop();
         state.institutions.forEach(row => row.pop());
-        if (state.monetization) { state.monetization.pop(); state.monetization.forEach(row => row.pop()); }
         if (state.numeraire >= state.sectors.length) state.numeraire = 0;
         state.social = state.social.filter(x => x < state.sectors.length);
         renderMatrix();
@@ -1021,7 +907,6 @@
                 </div>`;
             document.getElementById('out-balance').innerHTML = '';
             document.getElementById('out-centrality-tbody').innerHTML = '';
-            ['out-block-left','out-block-right','out-full-right'].forEach(id => { let el = document.getElementById(id); if (el) el.innerHTML = ''; });
             if (scaleChartInst) scaleChartInst.destroy();
             if (absChartInst) absChartInst.destroy();
             if (netFlowChartInst) netFlowChartInst.destroy();
@@ -1059,19 +944,18 @@
 
 
 
-        // Right eigenvector of the productive block: Standard-commodity proportions (PCMC Ch. 4)
-        let rightCore = null;
+        // Right eigenvector of the economic core: Standard-commodity proportions (PCMC Ch. 4)
+        let stdTbody = '';
         if (econ_indices.length > 1) {
-            rightCore = getDominantEigenvector(transposeMatrix(A_econ)).eigenvector;
+            let rightCore = getDominantEigenvector(transposeMatrix(A_econ)).eigenvector;
+            let ref = Math.abs(rightCore[0]) > 1e-12 ? rightCore[0] : 1;
+            for (let k = 0; k < econ_indices.length; k++) {
+                let i = econ_indices[k];
+                stdTbody += `<tr><td>${state.sectors[i].name} (${state.sectors[i].unit})</td>` +
+                            `<td>${(rightCore[k] / ref).toFixed(4)}</td></tr>`;
+            }
         }
-
-        // ---- Productive block vs. closed system: 2x2 eigenvector comparison ----
-        // full LEFT  = eigenvector (Provisioning Centrality)  |  full RIGHT  = right eigenvector of A
-        // block LEFT = left eigenvector of A_econ             |  block RIGHT = rightCore
-        renderComparisonVectors(A, A_econ, econ_indices, rightCore, eigenvector);
-
-        // ---- Monetized subsystem (mode 1: monetized-sector block) ----
-        renderMonetizedBlock(A);
+        document.getElementById('out-standard-tbody').innerHTML = stdTbody;
 
      
 
@@ -1184,13 +1068,10 @@
 
         // Institutional breakdown
         let instTotals = [0, 0, 0, 0];
-        let monTotals = new Array(MON_STATES).fill(0); // valuation layer, same flow weights
         for (let i = 0; i < N; i++)
             for (let j = 0; j < N; j++) {
                 let flowScale = state.Z[i][j] * provisioning_weights[i];
                 instTotals[state.institutions[i][j] || 0] += flowScale;
-                let mv = (state.monetization && state.monetization[i]) ? (state.monetization[i][j] || 0) : 0;
-                monTotals[mv] += flowScale;
             }
 
         // Network data
@@ -1209,112 +1090,8 @@
             }
         }
 
-        drawAllCharts(labels, sectoral_scales, bgColors, absChartDatasets, netFlowLabels, netFlowData, netFlowColors, instTotals, networkNodesZ, networkEdgesZ, networkNodesA, networkEdgesA, provisioning_weights, monTotals);
+        drawAllCharts(labels, sectoral_scales, bgColors, absChartDatasets, netFlowLabels, netFlowData, netFlowColors, instTotals, networkNodesZ, networkEdgesZ, networkNodesA, networkEdgesA, provisioning_weights);
         resetStale();
-    }
-
-    // Renders the 2x2: {full,block} x {left,right} eigenvectors.
-    // getDominantEigenvector returns the LEFT eigenvector of its argument; the RIGHT eigenvector
-    // of M is the left eigenvector of Mᵀ (matching the Standard-proportions computation).
-    function renderComparisonVectors(A, A_econ, econ_indices, rightCore, fullLeft) {
-        const fmt = (v, ref) => (Math.abs(ref) > 1e-12 ? (v / ref) : 0).toFixed(4);
-        const N = state.sectors.length;
-
-        // Full RIGHT — closed-system activity levels
-        let fR = '';
-        let fullRight = getDominantEigenvector(transposeMatrix(A)).eigenvector;
-        let refF = Math.abs(fullRight[0]) > 1e-12 ? fullRight[0] : 1;
-        for (let i = 0; i < N; i++) {
-            let isSoc = state.social.includes(i);
-            fR += `<tr><td style="text-align:left; ${isSoc ? 'color:var(--text-social);' : ''}">${state.sectors[i].name}</td>` +
-                  `<td style="text-align:right; font-family:monospace;">${fmt(fullRight[i], refF)}</td></tr>`;
-        }
-        document.getElementById('out-full-right').innerHTML = fR;
-
-        // Block LEFT — productive-block reproduction exchange ratios
-        let bL = '';
-        if (econ_indices.length > 0) {
-            let blockLeft = getDominantEigenvector(A_econ).eigenvector;
-            let normPos = econ_indices.indexOf(state.numeraire);
-            if (normPos < 0) normPos = 0;
-            let ref = Math.abs(blockLeft[normPos]) > 1e-12 ? blockLeft[normPos] : 1;
-            for (let k = 0; k < econ_indices.length; k++) {
-                let i = econ_indices[k];
-                bL += `<tr><td style="text-align:left;">${state.sectors[i].name}</td>` +
-                      `<td style="text-align:right; font-family:monospace;">${fmt(blockLeft[k], ref)}</td></tr>`;
-            }
-        } else {
-            bL = `<tr><td colspan="2" style="color:#888;">No productive (non-social) sectors.</td></tr>`;
-        }
-        document.getElementById('out-block-left').innerHTML = bL;
-
-        // Block RIGHT — Standard proportions (rightCore)
-        let bR = '';
-        if (rightCore && econ_indices.length > 0) {
-            let ref = Math.abs(rightCore[0]) > 1e-12 ? rightCore[0] : 1;
-            for (let k = 0; k < econ_indices.length; k++) {
-                let i = econ_indices[k];
-                bR += `<tr><td style="text-align:left;">${state.sectors[i].name}</td>` +
-                      `<td style="text-align:right; font-family:monospace;">${fmt(rightCore[k], ref)}</td></tr>`;
-            }
-        } else {
-            bR = `<tr><td colspan="2" style="color:#888;">Needs ≥ 2 productive sectors.</td></tr>`;
-        }
-        document.getElementById('out-block-right').innerHTML = bR;
-    }
-
-    // Monetized subsystem (mode 1): a sector qualifies if the majority of its OUTPUT flow volume
-    // carries a valuation marker (monetization state 1,2,3 — not 0 'unmarked' and not 4 'in-kind').
-    // Restrict A to qualifying sectors, compute dominant eigenvalue + left eigenvector.
-    function renderMonetizedBlock(A) {
-        const N = state.sectors.length;
-        const el = document.getElementById('out-monetized-block');
-        if (!el) return;
-        if (!state.monetization) { el.innerHTML = `<div style="color:#888; font-size:13px;">No valuation markers set. Left-click cells to mark monetized flows.</div>`; return; }
-
-        // qualify by share of outgoing flow volume that is monetized (states 1..3)
-        let monIdx = [];
-        for (let i = 0; i < N; i++) {
-            let tot = 0, mon = 0;
-            for (let j = 0; j < N; j++) {
-                let v = state.Z[i][j];
-                if (v > 0) {
-                    tot += v;
-                    let m = (state.monetization[i] ? state.monetization[i][j] : 0) || 0;
-                    if (m >= 1 && m <= 3) mon += v;
-                }
-            }
-            if (tot > 0 && mon / tot > 0.5) monIdx.push(i);
-        }
-
-        if (monIdx.length < 2) {
-            el.innerHTML = `<div style="color:#888; font-size:13px;">Fewer than two sectors have chiefly-monetized output — no monetized subsystem to compute. (Mark more output flows with $ / $~ / $* to populate this.)</div>`;
-            return;
-        }
-
-        // submatrix
-        let Am = monIdx.map(r => monIdx.map(c => A[r][c]));
-        let { lambda, eigenvector } = getDominantEigenvector(Am);
-        let ref = Math.abs(eigenvector[0]) > 1e-12 ? eigenvector[0] : 1;
-
-        let color = lambda < 0.99 ? 'var(--val-surplus)' : (lambda > 1.01 ? 'var(--val-deficit)' : 'var(--val-balance)');
-        let rows = monIdx.map((i, k) =>
-            `<tr><td style="text-align:left;">${state.sectors[i].name} (${state.sectors[i].unit})</td>` +
-            `<td style="text-align:right; font-family:monospace;">${(eigenvector[k] / ref).toFixed(4)}</td></tr>`
-        ).join('');
-
-        el.innerHTML = `
-            <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;">
-                <div style="flex:0 0 auto;">
-                    <div style="font-size:12px; text-transform:uppercase; color:#666; font-weight:bold;">Monetized subsystem eigenvalue</div>
-                    <strong style="font-size:22px; color:${color};">&lambda;<sub>$</sub> = ${lambda.toFixed(4)}</strong><br>
-                    <span style="font-size:12px; color:#546e7a;">${monIdx.length} monetized sector(s)</span>
-                </div>
-                <div style="flex:1; min-width:240px;">
-                    <div style="font-weight:600; font-size:13px; color:var(--primary); margin-bottom:4px;">Monetized-subsystem exchange ratios (left eigenvector)</div>
-                    <table class="diag-table"><thead><tr><th>Sector</th><th style="text-align:right;">Ratio</th></tr></thead><tbody>${rows}</tbody></table>
-                </div>
-            </div>`;
     }
 
     // Power iteration on A^T — converges to dominant left eigenvector of A
@@ -1380,7 +1157,7 @@
         return nonBasics;
     }
 
-    function drawAllCharts(scaleLabels, scaleValues, scaleColors, absDatasets, netLabels, netData, netColors, instTotals, networkNodesZ, networkEdgesZ, networkNodesA, networkEdgesA, centralityValues, monTotals) {
+    function drawAllCharts(scaleLabels, scaleValues, scaleColors, absDatasets, netLabels, netData, netColors, instTotals, networkNodesZ, networkEdgesZ, networkNodesA, networkEdgesA, centralityValues) {
         if (scaleChartInst) scaleChartInst.destroy();
         if (absChartInst) absChartInst.destroy();
         if (netFlowChartInst) netFlowChartInst.destroy();
@@ -1411,51 +1188,14 @@
             options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
         });
 
-        // Doughnut, two rings:
-        //   outer = Polanyi integration form (grey=unspecified, blue=market, gold=redistribution, terracotta=reciprocity)
-        //   inner = valuation/monetization layer (blank, generic $, free $, admin $, in-kind)
-        let monData = (monTotals && monTotals.length) ? monTotals : [0,0,0,0,0];
+        // Doughnut: grey=unspecified, blue=market, gold=redistribution, terracotta=reciprocity
         instChartInst = new Chart(document.getElementById('instChart').getContext('2d'), {
             type: 'doughnut',
             data: {
                 labels: ['Unspecified', 'Market Exchange', 'Redistribution', 'Reciprocity'],
-                datasets: [
-                    {
-                        // OUTER ring: integration form
-                        label: 'Integration form',
-                        data: instTotals,
-                        backgroundColor: ['#e0e0e0', '#90caf9', '#fff59d', '#ffab91'],
-                        weight: 2
-                    },
-                    {
-                        // INNER ring: valuation / monetization
-                        label: 'Valuation',
-                        data: monData,
-                        backgroundColor: ['#eceff1', '#a5d6a7', '#90caf9', '#ffcc80', '#b0bec5'],
-                        // labels for legend/tooltip mapping
-                        _monLabels: ['No valuation', 'Monetized ($)', 'Monetized free ($~)', 'Monetized admin ($*)', 'In-kind (⊘)'],
-                        weight: 1
-                    }
-                ]
+                datasets: [{ data: instTotals, backgroundColor: ['#e0e0e0', '#90caf9', '#fff59d', '#ffab91'] }]
             },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(ctx) {
-                                const ds = ctx.dataset;
-                                const val = ctx.raw || 0;
-                                let name;
-                                if (ds._monLabels) name = ds._monLabels[ctx.dataIndex] || ctx.label;
-                                else name = ctx.label;
-                                return `${name}: ${val.toFixed(2)}`;
-                            }
-                        }
-                    }
-                }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
         });
 
         // Radar in green
